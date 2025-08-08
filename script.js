@@ -13,7 +13,7 @@ function login() {
 
     // 2. ดึงค่าจากฟอร์มและจัดรูปแบบ (เหมือนเดิม)
     const employeeIdInput = document.getElementById('employeeId').value.trim();
-    const birthdateInput = document.getElementById('password').value.trim();
+    const passwordInput = document.getElementById('password').value.trim();
     const employeeId = employeeIdInput.toUpperCase(); // แปลงเป็นตัวใหญ่เพื่อใช้ค้นหา
 
     // 3. ค้นหาข้อมูลผู้ใช้ในฐานข้อมูลจำลอง
