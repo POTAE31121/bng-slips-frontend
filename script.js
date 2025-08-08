@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+HEAD
 // script.js (เวอร์ชันปรับปรุงใหม่)
 
 function login() {
@@ -32,7 +32,7 @@ function login() {
     }
 
     return false;
-=======
+// =======
 // script.js (เวอร์ชันปรับปรุงใหม่)
 
 function login() {
@@ -66,5 +66,5 @@ function login() {
     }
 
     return false;
->>>>>>> 6beea7e6898023bea72bae40c4fa88d8d390da31
+    }
 }
