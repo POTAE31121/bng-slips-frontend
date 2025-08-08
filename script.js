@@ -1,4 +1,3 @@
-HEAD
 // script.js (เวอร์ชันปรับปรุงใหม่)
 
 function login() {
