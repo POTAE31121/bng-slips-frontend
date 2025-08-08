@@ -127,7 +127,7 @@
 
 
         /* ช่องกรอกข้อมูล (เหมือนเดิม) */
-        input[type="text"] {
+        input[type="text"], input[type="password"] {
             width: 100%;
             padding: 12px 16px;
             margin-bottom: 20px;
@@ -138,7 +138,7 @@
             transition: border-color 0.3s, box-shadow 0.3s;
         }
 
-        input[type="text"]:focus {
+        input[type="text"]:focus, input[type="password"]:focus {
             border-color: #1877f2;
             box-shadow: 0 0 0 2px #e7f3ff;
             outline: none;
@@ -182,7 +182,7 @@
 
             <div>
                 <label for="password">รหัสผ่าน</label>
-                <input type="text" id="password" name="password" placeholder="กรอกเลข 4 หลัก" required maxlength="4">
+                <input type="password" id="password" name="password" placeholder="กรอกเลข 4 หลัก" required maxlength="4">
             </div>
             
             <input type="submit" value="เข้าสู่ระบบ">
