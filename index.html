@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Program Slips</title>
+    <style>
+        /* ตั้งค่าพื้นฐานและ Font (เหมือนเดิม) */
+        body, html {
+            height: 100%;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        }
+
+        /* เพิ่มส่วนนี้เข้ามาใหม่ทั้งหมด */
+        body {
+            /* 1. กำหนดรูปภาพพื้นหลัง */
+            /* ใส่เส้นทางไปยังไฟล์รูปภาพของคุณที่นี่ */
+            background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url('images/background.jpg'); /* ใช้ linear-gradient เพื่อให้พื้นหลังมีความโปร่งแสง */
+            
+            /* 2. ทำให้รูปภาพเต็มหน้าจอและไม่ซ้ำ */
+            background-size: cover; /* ขยายภาพให้เต็มพื้นที่โดยรักษาสัดส่วน */
+            background-position: center; /* จัดภาพให้อยู่กึ่งกลาง */
+            background-repeat: no-repeat; /* ไม่ต้องแสดงภาพซ้ำ */
+            
+            /* 3. จัดกล่อง login ให้อยู่กลาง (ย้ายจาก body,html มาไว้ที่นี่) */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* กล่องสำหรับฟอร์มล็อกอิน (เหมือนเดิม) */
+        .login-container {
+            padding: 40px;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.85)), url('images/form-background.png');
+            background-size: cover;
+            background-position: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            box-sizing: border-box;
+        }
+
+        /* หัวข้อ (เหมือนเดิม) */
+        h1 {
+            text-align: center;
+            color: #1c1e21;
+            margin-top: 0;
+            margin-bottom: 24px;
+            font-size: 28px;
+        }
+
+        /* --- CSS ที่เพิ่มเข้ามาและแก้ไข --- */
+
+        /* 1. สร้าง container สำหรับ label และ icon เพื่อจัดวางข้างกัน */
+        .label-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        
+        /* ป้ายกำกับ (Label) - เอา margin-bottom ออกเพราะไปกำหนดที่ container แทน */
+        label {
+            display: block;
+            color: #606770;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        /* 2. สไตล์ของไอคอน "i" */
+        .info-icon {
+            display: inline-flex; /* ใช้ flex เพื่อจัดตัว i ให้อยู่กลางวงกลม */
+            justify-content: center;
+            align-items: center;
+            width: 18px;
+            height: 18px;
+            background-color: #a0a0a0;
+            color: white;
+            border-radius: 50%; /* ทำให้เป็นวงกลม */
+            font-size: 12px;
+            font-weight: bold;
+            font-style: italic;
+            cursor: help; /* เปลี่ยน cursor เป็นเครื่องหมายคำถาม */
+            margin-left: 8px;
+            position: relative; /* ***สำคัญ*** ตั้งค่าให้เป็นจุดอ้างอิงของ Tooltip */
+        }
+        
+        /* 3. สไตล์ของกล่องข้อความ Tooltip (ซ่อนไว้เป็นปกติ) */
+        .info-icon .tooltip-text {
+            visibility: hidden; /* ซ่อนไว้ก่อน */
+            opacity: 0;
+            width: 240px;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 8px;
+            position: absolute; /* ทำให้ลอยอยู่เหนือ element อื่น */
+            z-index: 1;
+            bottom: 150%; /* ตำแหน่ง: ให้อยู่เหนือไอคอน */
+            left: 50%;
+            transform: translateX(-50%); /* จัดให้อยู่กลางไอคอน */
+            transition: opacity 0.3s;
+            font-style: normal; /* ทำให้ตัวอักษรใน tooltip ไม่เอียง */
+        }
+        
+        /* 4. สไตล์ของสามเหลี่ยมชี้ลง (ทำจาก border) */
+        .info-icon .tooltip-text::after {
+            content: "";
+            position: absolute;
+            top: 100%; /* ตำแหน่ง: อยู่ด้านล่างของกล่อง tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: #333 transparent transparent transparent;
+        }
+        
+        /* 5. ทำให้ Tooltip แสดงผลเมื่อเอาเมาส์ไปชี้ที่ไอคอน */
+        .info-icon:hover .tooltip-text {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        /* --- จบส่วน CSS ที่เพิ่มเข้ามา --- */
+
+
+        /* ช่องกรอกข้อมูล (เหมือนเดิม) */
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 16px;
+            margin-bottom: 20px;
+            border-radius: 6px;
+            border: 1px solid #dddfe2;
+            font-size: 16px;
+            box-sizing: border-box;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 2px #e7f3ff;
+            outline: none;
+        }
+
+        /* ปุ่ม Submit (เหมือนเดิม) */
+        input[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #1877f2;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #166fe5;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1 id="program-title">BNG Slips</h1>
+
+        <form onsubmit="return login()">
+            <div>
+                <!-- *** HTML ที่แก้ไข *** -->
+                <div class="label-container">
+                    <label for="employeeId">รหัสพนักงาน</label>
+                    <span class="info-icon">i
+                        <span class="tooltip-text">รหัสพนักงานต้องกรอก L0 ตามด้วยรหัสพนักงาน เช่น L01234</span>
+                    </span>
+                </div>
+                <input type="text" id="employeeId" name="employeeId" placeholder="กรุณากรอกรหัสพนักงาน" required>
+            </div>
+
+            <div>
+                <label for="birthdate">วัน/เดือน/ปีเกิด (วว/ดด/ปปปป)</label>
+                <input type="text" id="birthdate" name="birthdate" placeholder="ตัวอย่าง: 31/12/1990" required>
+            </div>
+            
+            <input type="submit" value="เข้าสู่ระบบ">
+        </form>
+    </div>
+
+    <script>
+        // ฟังก์ชันนี้จะทำงานทันทีที่หน้าเว็บโหลดเสร็จ
+        (function() {
+            // สร้าง Array ของชื่อเดือนภาษาอังกฤษ (เริ่มจากเดือน 0 = January)
+            const thaiMonths = [
+                "January", "Febuary", "March", "April",
+                "May", "June", "July", "August",
+                "September", "October", "November", "December"
+            ];
+
+            // 1. ดึงวันที่ปัจจุบัน
+            const today = new Date();
+
+            // 2. ดึง "เดือน" ปัจจุบัน (จะได้เป็นตัวเลข 0-11)
+            const monthIndex = today.getMonth();
+
+            // 3. ดึงชื่อเดือนจาก Array ด้านบน
+            const currentMonthName = thaiMonths[monthIndex];
+
+            // 4. สร้างข้อความหัวข้อใหม่
+            const newTitle = `BNG Slips ${currentMonthName}`;
+
+            // 5. หาแท็ก h1 ที่เราตั้ง id ไว้ แล้วเปลี่ยนข้อความข้างใน
+            document.getElementById('program-title').textContent = newTitle;
+        })();
+    </script>
+
+
+    <!-- เช็คบรรทัดนี้: ต้องมีการเรียก script.js ที่ท้าย body -->
+    <script src="script.js"></script>
+</body>
+</html>
