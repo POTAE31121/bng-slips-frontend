@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+{% block content %}
+<h1>Bulk Upload Slips</h1>
+<p>
+    โปรดเลือกไฟล์สลิปทั้งหมดที่ต้องการอัปโหลด<br>
+    <strong>กฎสำคัญ:</strong> ชื่อไฟล์ต้องตรงกับรหัสพนักงาน (เช่น L04424.jpg)
+</p>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    
+    <div>
+        <label for="month">สำหรับเดือน:</label>
+        <input type="number" name="month" required min="1" max="12" placeholder="เช่น 8">
+    </div>
+    <br>
+    <div>
+        <label for="year">สำหรับปี (ค.ศ.):</label>
+        <input type="number" name="year" required min="2020" max="2100" placeholder="เช่น 2025">
+    </div>
+    <br>
+    <div>
+        <!-- multiple อนุญาตให้เลือกได้หลายไฟล์ -->
+        <input type="file" name="slip_files" multiple required>
+    </div>
+    <br>
+    <div>
+        <input type="submit" value="Upload Files">
+    </div>
+</form>
+
+{% endblock %}

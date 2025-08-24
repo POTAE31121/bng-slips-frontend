@@ -1,0 +1,72 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>สลิปเงินเดือน - {{ employee.employee_id }}</title>
+    <style>
+        /* สไตล์ชีตทั้งหมดเหมือนเดิม ไม่ต้องแก้ไข */
+        body, html { 
+            margin: 0; 
+            padding: 0; 
+            height: 100%; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            background-color: #2e2e2e; 
+        }
+        #slip-image { 
+            max-width: 95%; 
+            max-height: 95vh; 
+            object-fit: contain; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.5); 
+            border-radius: 4px; 
+        }
+        .back-button { 
+            position: fixed; 
+            top: 20px; 
+            left: 20px; 
+            z-index: 100; 
+            background-color: rgba(255, 255, 255, 0.9); 
+            color: #333; 
+            padding: 8px 16px; 
+            border-radius: 20px; 
+            text-decoration: none; 
+            font-weight: bold; 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2); 
+            transition: all 0.2s ease-in-out; 
+        }
+        .back-button:hover { 
+            background-color: #ffffff; 
+            transform: scale(1.05); 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.25); 
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. ปุ่มย้อนกลับ -->
+    <a href="{% url 'login_page' %}" class="back-button">&larr; ย้อนกลับ</a>
+
+    <!-- 2. รูปภาพสลิปที่รับ Path มาจาก Django View โดยตรง -->
+    <!-- ใช้ if-else เพื่อตรวจสอบว่ามี slip หรือไม่ -->
+    {% if slip %}
+
+        <!-- ถ้ามี slip ให้แสดงรูปภาพ -->
+        <!-- เราจะใช้ slip.image.url จาก Cloudinary โดยตรง -->
+    <img id="slip-image" src="{{ slip.image.url }}" alt="สลิปเงินเดือนของพนักงาน {{ employee.employee_id }} เดือน {{ slip.month }}/{{ slip.year }}">
+
+    {% else %}
+
+        <!-- ถ้าไม่มีสลิป ให้แสดงข้อความแจ้งเตือน -->
+        <div class="no-slip-message">
+            <p>ไม่พบข้อมูลสลิปเงินเดือนสำหรับพนักงานรหัส {{ employee.employee_id }}</p>
+            <p>กรุณาติดต่อฝ่ายบุคคล</p>
+        </div>
+
+    {% endif %}
+
+</body>
+</html>
