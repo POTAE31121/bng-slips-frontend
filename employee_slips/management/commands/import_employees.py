@@ -23,7 +23,7 @@ class Command(BaseCommand):
         self.stdout.write("Starting employee import...")
         
         try:
-            with open(csv_file_path, mode='r', encoding='utf-8') as file:
+            with open(csv_file_path, mode='r', encoding='utf-8-sig') as file:
                 reader = csv.DictReader(file)
                 
                 employees_to_create = []
